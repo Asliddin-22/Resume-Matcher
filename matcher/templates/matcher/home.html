@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resume Matcher</title>
+</head>
+<body>
+  <h1>Resume Matcher</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Upload resume (.txt):</label>
+    <input type="file" name="resume" accept=".txt" required>
+    <button type="submit">Upload</button>
+  </form>
+  {% if message %}
+    <p>{{ message }}</p>
+  {% endif %}
+</body>
+</html>
