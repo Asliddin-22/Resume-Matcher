@@ -1,18 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Resume Matcher</title>
-</head>
-<body>
-  <h1>Resume Matcher</h1>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label>Upload resume (.txt):</label>
-    <input type="file" name="resume" accept=".txt" required>
-    <button type="submit">Upload</button>
-  </form>
-  {% if message %}
-    <p>{{ message }}</p>
+{% extends "matcher/base.html" %}
+
+{% block title %}Resume Matcher{% endblock %}
+
+{% block content %}
+  <h1>Match your resume</h1>
+  <p class="lead">Upload a .txt resume to rank internship and co-op jobs with BM25, semantic search, and RRF.</p>
+
+  <div class="panel">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="resume">Upload resume (.txt)</label>
+      <input id="resume" type="file" name="resume" accept=".txt" required>
+      <button type="submit">Find matches</button>
+    </form>
+
+    {% if message %}
+      <p class="message">{{ message }}</p>
+    {% endif %}
+  </div>
+
+  {% if final_results %}
+    <h2 style="margin-top: 2rem;">Top jobs</h2>
+    <ol class="jobs" style="list-style: decimal; padding-left: 1.25rem;">
+      {% for job in final_results %}
+        <li>
+          <a class="job-title" href="{% url 'job_detail' job.id %}">{{ job.title }}</a>
+          <div class="job-meta">{{ job.employer }}</div>
+        </li>
+      {% endfor %}
+    </ol>
   {% endif %}
-</body>
-</html>
+{% endblock %}

@@ -2,3 +2,7 @@ venv/
 __pycache__/
 .DS_Store
 .env
+data/vector_db/
+data/resumes/
+data/jobs/all_drexel_coops_export.csv
+db.sqlite3

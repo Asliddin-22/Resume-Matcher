@@ -1,0 +1,38 @@
+{% extends "matcher/base.html" %}
+
+{% block title %}{{ job.title }} · Resume Matcher{% endblock %}
+
+{% block content %}
+  <p class="meta-row"><a href="{% url 'browse_jobs' %}">← Back to browse</a></p>
+
+  <h1>{{ job.title }}</h1>
+  <p class="lead">{{ job.employer }}</p>
+
+  <div class="panel">
+    <div class="facts">
+      <div class="fact"><span>Location</span>{{ job.location|default:"—" }}</div>
+      <div class="fact"><span>Type</span>{{ job.job_type|default:"—" }}</div>
+      <div class="fact"><span>Duration</span>{{ job.duration|default:"—" }}</div>
+      <div class="fact"><span>Status</span>{{ job.status|default:"—" }}</div>
+      <div class="fact"><span>Hours/Week</span>{{ job.hours|default:"—" }}</div>
+      <div class="fact"><span>Compensation</span>{{ job.compensation|default:"—" }}</div>
+      <div class="fact"><span>Min GPA</span>{{ job.min_gpa|default:"—" }}</div>
+      <div class="fact"><span>Majors</span>{{ job.majors|default:"—" }}</div>
+    </div>
+
+    <div class="detail-block">
+      <h2>Position description</h2>
+      <p>{{ job.position_description|default:"No description provided." }}</p>
+    </div>
+
+    <div class="detail-block">
+      <h2>Qualifications</h2>
+      <p>{{ job.qualifications|default:"No qualifications listed." }}</p>
+    </div>
+
+    <div class="detail-block">
+      <h2>Company description</h2>
+      <p>{{ job.company_description|default:"No company description provided." }}</p>
+    </div>
+  </div>
+{% endblock %}

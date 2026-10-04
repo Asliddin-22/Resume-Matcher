@@ -1,0 +1,6 @@
+Alex Rivera
+Computer Science student
+Skills: Python, Django, SQL, Git, REST APIs, HTML, CSS
+Experience: Built a Django web app that ranks job postings with keyword search and embeddings.
+Projects: Resume matcher, course planner, small REST APIs.
+Education: Bachelor of Science in Computer Science

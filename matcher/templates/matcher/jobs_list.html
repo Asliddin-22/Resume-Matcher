@@ -1,0 +1,51 @@
+{% extends "matcher/base.html" %}
+
+{% block title %}Browse jobs · Resume Matcher{% endblock %}
+
+{% block content %}
+  <h1>Browse jobs</h1>
+  <p class="lead">Search the co-op corpus by title, employer, location, or keywords.</p>
+
+  <div class="panel">
+    <form class="toolbar" method="get" action="{% url 'browse_jobs' %}">
+      <div class="grow">
+        <label for="q">Search</label>
+        <input id="q" type="search" name="q" value="{{ query }}" placeholder="python, data, philadelphia...">
+      </div>
+      <button type="submit">Filter</button>
+    </form>
+
+    <p class="meta-row" style="margin-top: 1rem;">
+      {{ total_count }} job{{ total_count|pluralize }}
+      {% if query %} for “{{ query }}”{% endif %}
+      · page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </p>
+
+    <ul class="jobs">
+      {% for job in page_obj %}
+        <li>
+          <a class="job-title" href="{% url 'job_detail' job.id %}">{{ job.title }}</a>
+          <div class="job-meta">{{ job.employer }}{% if job.location %} · {{ job.location }}{% endif %}</div>
+        </li>
+      {% empty %}
+        <li class="job-meta">No jobs matched that search.</li>
+      {% endfor %}
+    </ul>
+
+    <div class="pager">
+      {% if page_obj.has_previous %}
+        <a class="btn" href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query|urlencode }}{% endif %}">Previous</a>
+      {% else %}
+        <span></span>
+      {% endif %}
+
+      <span class="job-meta">Page {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+      {% if page_obj.has_next %}
+        <a class="btn" href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query|urlencode }}{% endif %}">Next</a>
+      {% else %}
+        <span></span>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
